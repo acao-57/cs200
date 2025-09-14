@@ -1,47 +1,66 @@
-# cs200
-Amy Cao - ConnectFour
-CS200 - Foundational Programming Concepts &amp; Design Final Project
+# ConnectFour
+CSCI200 - Foundational Programming Concepts &amp; Design Final Project
 
-Problem Description:
-I created a program that lets you play Connect Four with another player as a 2 player game. 
-There is a blank board(grid) generated, and player one, who goes first, can pick to be either “X” or “O”
-and player two will be the other token type. A Game.txt file will be generated and the terminal will 
-ask you to play a move. If invalid, the player must input another value until it is a valid move.
-When either player gets four in a row (horizontally, vertically, diagonally) or the board is full with no four in a row,
-the game ends.
+A terminal-based implementation of the Connect Four game for two players, written in C++. This program features a dynamic game board, win condition checking, and persistent game state logging to a file.
 
-Program Documentation:
-run the Makefile, target is main. Terminal will ask you to type in letter 'X' or 'O' to determine token types,
-then generates a Game.txt file where the board and player moves will be generated. In terminal, it'll ask you to 
-play a valid move by typing in the column number. Things I didn't do that I originally planned on doing: counting wins, losses,
-and ties --> I just didn't have the time to implement them. I also adjusted where some of the functions and classes would go
-because I ended up getting confused if the class name didn't match the function name in some form. 
+## Features
+*   **Two-Player Gameplay:** Play against another person on the same machine.
+*   **Token Selection:** Player One chooses to be 'X' or 'O' at the start.
+*   **Win Condition Detection:** Accurately detects horizontal, vertical, and diagonal wins
+*   **Draw Detection:** Identifies when the board is full with no winner.
+*   **Input Validation:** Handles invalid moves, prompting the user to try again.
+*   **Game Logging:** Automatically generates and updates a `Game.txt` file with the board state after every move.
 
-Class Description:
-Board --> creates the board from an array of strings where you can update moves. Also has some getter functions to get the values
-as needed in other classes. Also has a checkFullBoard function to see if the board is completely full with no wins.
-Token --> creates the token types used throughout the game and to be updated in the board in the Board class. Has getter and setter
-functions to be used in main.cpp and in other classes.
-Win --> interface for different Win child classes
-HorizontalWin --> checks the board for horizontal win of either token type, child class of Win
-VerticalWin --> checks the board for vertical win of either token type, child class of Win
-DiagonalWin --> checks the board for a diagonal win of '\' or '/' types of either token type, child class of Win
-Move --> checks if the player's move is placed where there are empty columns starting from the bottom row up, then creates
-a string of that row and column to be used in other classes. also has a get method for that string.
+## How to Run
+1.  **Compile:** Use the provided Makefile.
+    ```bash
+    make
+    ```
+    This will compile the program with the target `main`.
 
-All classes were divided how they were to organize the different functions so that it would be easier to know which is which and 
-what to use.
+2.  **Execute:** Run the generated executable.
+    ```bash
+    ./main
+    ```
 
-List Data Structure: used a 2D array for generating the board --> board was going to be easiest to make with a 2D array,
-especially with getting and setting different board values. It's the backbone of the project, otherwise there would be no game.
+3.  **Play:**
+    *   Player One will be prompted to choose 'X' or 'O'.
+    *   Players take turns typing the column number (displayed in Game.txt) where they wish to drop their token.
+    *   The game continues until a player gets four in a row or the board is full.
 
-File I/O: ostream was used to make a game file where you can actually see and play the game from one move to the next.
-Having it in the terminal would be inconvinent so the only other way to see and update the game file is through other file, which
-would need ostream.
+## Project Structure & Class Overview
+The project focuses on object-oriented principles.
 
-Reflection: I learned a lot about patience and organization from this project. I got a better understanding of how to utilize arrays
-and being careful with the bounds of my loops. It strengthened my understanding of pointers and abstract functions, and it ended up
-being pretty fun to see it start from scratch to a fully functional project. If I were to do it differently, I would first implement 
-pseudocode to layout exactly what functions go where, if it should go in one class or the other, and being mindful to continuously test 
-code as I go through the process. I had to move around a lot of functions and I implemented more classes than I originally thought, so I
-would try to be more organized and have a solid understanding of where things would go before going into it blindly.
+| Class | Description |
+| :--- | :--- |
+| **`Board`** | The core of the game. Manages the 2D array representing the game grid, updates moves, checks if the board is full, and provides getter functions. |
+| **`Token`** | Represents the player tokens ('X' and 'O'). Handles the logic for getting and setting the current token type. |
+| **`Win`** | Abstract base class that defines the interface for checking win conditions. |
+| `HorizontalWin` | Child class of `Win` that checks for four consecutive tokens in a row. |
+| `VerticalWin` | Child class of `Win` that checks for four consecutive tokens in a column. |
+| `DiagonalWin` | Child class of `Win` that checks for four consecutive tokens in a diagonal direction (both `\` and `/`). |
+| **`Move`** | Validates player moves (ensuring columns are not full) and generates a string representation of the move's location for use in other classes. |
+
+## Data Structures & Techniques
+
+*   **2D Array:** Used as the data structure for the game board for access and manipulation of grid cells.
+*   **Polymorphism:** The `Win` class hierarchy allows for win condition checking.
+*   **File I/O (`ostream`):** The game state is written to `Game.txt` after each move, providing a persistent record of the game.
+
+## Reflection & Learnings
+
+*   **Planning:** Moving forward, I will spend more time in pseudocode and planning hierarchies before writing code to avoid backtracking and getting confused over where functions and methods belong.
+*   **Incremental Testing:** Testing small pieces of functionality as they are being built is far more efficient and convenient than leaving it all at the end.
+
+The project solidified my knowledge of foundational C++ concepts, including:
+  *   Pointers.
+  *   Abstract classes and polymorphism.
+  *   Array manipulation, loops, and edge-cases.
+  *   Object-oriented programming.
+  *   Error catching
+
+## Future Improvements
+
+*   Keep track of wins, losses, and ties across multiple sessions.
+*   Implement an AI opponent for single-player mode (currently only two-player mode)
+*   Create a graphical user interface instead of a terminal-based one.
